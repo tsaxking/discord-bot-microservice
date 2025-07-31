@@ -1,5 +1,5 @@
 import { REST } from '@discordjs/rest';
-import { Options, Partials } from 'discord.js';
+import { Options, Partials, Routes } from 'discord.js';
 import { createRequire } from 'node:module';
 
 import { Button } from './buttons/index.js';
@@ -7,6 +7,7 @@ import { DevCommand, HelpCommand, InfoCommand, TestCommand } from './commands/ch
 import {
 	ChatCommandMetadata,
 	Command,
+	CommandDeferType,
 	MessageCommandMetadata,
 	UserCommandMetadata
 } from './commands/index.js';
@@ -58,17 +59,27 @@ async function start(): Promise<void> {
 
 	// Commands
 	let commands: Command[] = [
+		{
+			names: ['dev'],
+			cooldown: undefined,
+			deferType: CommandDeferType.NONE,
+			autocomplete: undefined,
+			requireClientPerms: [],
+			execute: async (intr, data) => {
+				console.log('Dev command executed');
+			},
+		}
 		// Chat Commands
-		new DevCommand(),
-		new HelpCommand(),
-		new InfoCommand(),
-		new TestCommand(),
+		// new DevCommand(),
+		// new HelpCommand(),
+		// new InfoCommand(),
+		// new TestCommand(),
 
-		// Message Context Commands
-		new ViewDateSent(),
+		// // Message Context Commands
+		// new ViewDateSent(),
 
-		// User Context Commands
-		new ViewDateJoined()
+		// // User Context Commands
+		// new ViewDateJoined()
 
 		// TODO: Add new commands here
 	];
@@ -116,25 +127,36 @@ async function start(): Promise<void> {
 	);
 
 	// Register
-	if (process.argv[2] == 'commands') {
-		try {
-			let rest = new REST({ version: '10' }).setToken(Config.client.token);
-			let commandRegistrationService = new CommandRegistrationService(rest);
-			let localCmds = [
-				...Object.values(ChatCommandMetadata).sort((a, b) => (a.name > b.name ? 1 : -1)),
-				...Object.values(MessageCommandMetadata).sort((a, b) => (a.name > b.name ? 1 : -1)),
-				...Object.values(UserCommandMetadata).sort((a, b) => (a.name > b.name ? 1 : -1))
-			];
-			await commandRegistrationService.process(localCmds, process.argv);
-		} catch (error) {
-			Logger.error(Logs.error.commandAction, error);
-		}
-		// Wait for any final logs to be written.
-		await new Promise((resolve) => setTimeout(resolve, 1000));
-		process.exit();
-	}
-
-	await bot.start();
+	// if (process.argv[2] == 'commands') {
+	// 	try {
+	let rest = new REST({ version: '10' }).setToken(Config.client.token);
+	let commandRegistrationService = new CommandRegistrationService(rest);
+	let localCmds = [
+		...Object.values(ChatCommandMetadata).sort((a, b) => (a.name > b.name ? 1 : -1)),
+		...Object.values(MessageCommandMetadata).sort((a, b) => (a.name > b.name ? 1 : -1)),
+		...Object.values(UserCommandMetadata).sort((a, b) => (a.name > b.name ? 1 : -1))
+	];
+	await commandRegistrationService.process(localCmds, process.argv);
+	rest.put(
+		Routes.applicationCommands(Config.client.id),
+		{ body: commands.map(c => {
+			return c.names.map(n => ({
+				...c,
+				name: n,
+				names: undefined,
+				type: 1,
+				description: c.description || 'No description provided',
+			}))
+		}).flat() }
+	);
+	// 	} catch (error) {
+	// 		Logger.error(Logs.error.commandAction, error);
+	// 	}
+	// 	// Wait for any final logs to be written.
+	// 	await new Promise((resolve) => setTimeout(resolve, 1000));
+	// 	process.exit();
+	// }
+	await bot.start().unwrap();
 }
 
 process.on('unhandledRejection', (reason, _promise) => {

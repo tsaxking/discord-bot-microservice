@@ -31,7 +31,7 @@ import { attempt, attemptAsync } from 'ts-utils/check';
 const require = createRequire(import.meta.url);
 let Config = require('../../../config/config.json');
 let Debug = require('../../../config/debug.json');
-let Logs = require('../../../config/config.json');
+let Logs = require('../../../lang/logs.json');
 
 export class Bot {
 	private ready = false;
@@ -48,9 +48,9 @@ export class Bot {
 		private jobService: JobService
 	) {}
 
-	public async start(): Promise<void> {
+	public start() {
 		this.registerListeners();
-		await this.login(this.token);
+		return this.login(this.token);
 	}
 
 	private registerListeners(): void {
