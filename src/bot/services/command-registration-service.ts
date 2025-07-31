@@ -11,8 +11,8 @@ import { createRequire } from 'node:module';
 import { Logger } from './logger.js';
 
 const require = createRequire(import.meta.url);
-let Config = require('../../config/config.json');
-let Logs = require('../../lang/logs.json');
+let Config = require('../../../config/config.json');
+let Logs = require('../../../config/config.json');
 
 export class CommandRegistrationService {
 	constructor(private rest: REST) {}

@@ -1,4 +1,3 @@
-import { client } from './bot';
+import './bot/index.js';
 import { setLogErrors } from 'ts-utils/check';
 setLogErrors(true);
-client.once('ready', () => console.log('hi!'));

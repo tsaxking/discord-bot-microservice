@@ -9,7 +9,7 @@ import {
 } from '../models/master-api/index.js';
 
 const require = createRequire(import.meta.url);
-let Config = require('../../config/config.json');
+let Config = require('../../../config/config.json');
 
 export class MasterApiService {
 	private clusterId?: string;

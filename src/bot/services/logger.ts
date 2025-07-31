@@ -5,7 +5,7 @@ import pino from 'pino';
 import { attemptAsync } from 'ts-utils/check';
 
 const require = createRequire(import.meta.url);
-let Config = require('../../config/config.json');
+let Config = require('../../../config/config.json');
 
 let logger = pino(
 	{

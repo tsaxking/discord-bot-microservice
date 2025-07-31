@@ -6,7 +6,7 @@ import { EventDataService } from '../services/index.js';
 import { Trigger } from '../triggers/index.js';
 
 const require = createRequire(import.meta.url);
-let Config = require('../../config/config.json');
+let Config = require('../../../config/config.json');
 
 export class TriggerHandler {
 	private rateLimiter = new RateLimiter(

@@ -18,8 +18,8 @@ import { CommandUtils, InteractionUtils } from '../utils/index.js';
 import { attemptAsync } from 'ts-utils/check';
 
 const require = createRequire(import.meta.url);
-let Config = require('../../config/config.json');
-let Logs = require('../../lang/logs.json');
+let Config = require('../../../config/config.json');
+let Logs = require('../../../config/config.json');
 
 export class CommandHandler implements EventHandler {
 	private rateLimiter = new RateLimiter(

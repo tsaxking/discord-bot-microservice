@@ -7,7 +7,7 @@ import { EventDataService, Lang, Logger } from '../services/index.js';
 import { ClientUtils, FormatUtils, MessageUtils } from '../utils/index.js';
 
 const require = createRequire(import.meta.url);
-let Logs = require('../../lang/logs.json');
+let Logs = require('../../../config/config.json');
 
 export class GuildJoinHandler implements EventHandler {
 	constructor(private eventDataService: EventDataService) {}

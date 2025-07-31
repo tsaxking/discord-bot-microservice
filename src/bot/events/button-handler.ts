@@ -8,7 +8,7 @@ import { EventDataService } from '../services/index.js';
 import { InteractionUtils } from '../utils/index.js';
 
 const require = createRequire(import.meta.url);
-let Config = require('../../config/config.json');
+let Config = require('../../../config/config.json');
 
 export class ButtonHandler implements EventHandler {
 	private rateLimiter = new RateLimiter(

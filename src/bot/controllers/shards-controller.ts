@@ -15,8 +15,8 @@ import {
 import { Logger } from '../services/index.js';
 
 const require = createRequire(import.meta.url);
-let Config = require('../../config/config.json');
-let Logs = require('../../lang/logs.json');
+let Config = require('../../../config/config.json');
+let Logs = require('../../../config/config.json');
 
 export class ShardsController implements Controller {
 	public path = '/shards';

@@ -5,7 +5,7 @@ import { EventHandler } from './index.js';
 import { Logger } from '../services/index.js';
 
 const require = createRequire(import.meta.url);
-let Logs = require('../../lang/logs.json');
+let Logs = require('../../../config/config.json');
 
 export class GuildLeaveHandler implements EventHandler {
 	public async process(guild: Guild): Promise<void> {

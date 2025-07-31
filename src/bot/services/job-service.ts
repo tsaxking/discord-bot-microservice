@@ -8,7 +8,7 @@ import { Job } from '../jobs/index.js';
 import { attempt } from 'ts-utils/check';
 
 const require = createRequire(import.meta.url);
-let Logs = require('../../lang/logs.json');
+let Logs = require('../../../config/config.json');
 
 export class JobService {
 	constructor(private jobs: Job[]) {}

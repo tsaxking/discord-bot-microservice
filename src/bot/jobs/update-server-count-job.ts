@@ -9,8 +9,8 @@ import { ShardUtils } from '../utils/index.js';
 
 const require = createRequire(import.meta.url);
 let BotSites: BotSite[] = require('../../config/bot-sites.json');
-let Config = require('../../config/config.json');
-let Logs = require('../../lang/logs.json');
+let Config = require('../../../config/config.json');
+let Logs = require('../../../config/config.json');
 
 export class UpdateServerCountJob extends Job {
 	public name = 'Update Server Count';

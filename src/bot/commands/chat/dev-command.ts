@@ -11,8 +11,8 @@ import { FormatUtils, InteractionUtils, ShardUtils } from '../../utils/index.js'
 import { Command, CommandDeferType } from '../index.js';
 
 const require = createRequire(import.meta.url);
-let Config = require('../../../config/config.json');
-let TsConfig = require('../../../tsconfig.json');
+let Config = require('../../../../config/config.json');
+let TsConfig = require('../../../../tsconfig.json');
 
 export class DevCommand implements Command {
 	public names = [Lang.getRef('chatCommands.dev', Language.Default)];

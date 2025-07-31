@@ -29,9 +29,9 @@ import { PartialUtils } from '../utils/index.js';
 import { attempt, attemptAsync } from 'ts-utils/check';
 
 const require = createRequire(import.meta.url);
-let Config = require('../../config/config.json');
-let Debug = require('../../config/debug.json');
-let Logs = require('../../lang/logs.json');
+let Config = require('../../../config/config.json');
+let Debug = require('../../../config/debug.json');
+let Logs = require('../../../config/config.json');
 
 export class Bot {
 	private ready = false;

@@ -8,7 +8,7 @@ import { attempt } from 'ts-utils/check';
 
 export class Lang {
 	private static linguini = new Linguini(
-		path.resolve(dirname(fileURLToPath(import.meta.url)), '../../lang'),
+		path.resolve(dirname(fileURLToPath(import.meta.url)), '../../../lang'),
 		'lang'
 	);
 

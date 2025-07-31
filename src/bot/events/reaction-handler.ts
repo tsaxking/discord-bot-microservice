@@ -7,7 +7,7 @@ import { Reaction } from '../reactions/index.js';
 import { EventDataService } from '../services/index.js';
 
 const require = createRequire(import.meta.url);
-let Config = require('../../config/config.json');
+let Config = require('../../../config/config.json');
 
 export class ReactionHandler implements EventHandler {
 	private rateLimiter = new RateLimiter(

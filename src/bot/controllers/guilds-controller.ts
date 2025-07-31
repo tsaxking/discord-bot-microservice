@@ -7,7 +7,7 @@ import { Controller } from './index.js';
 import { GetGuildsResponse } from '../models/cluster-api/index.js';
 
 const require = createRequire(import.meta.url);
-let Config = require('../../config/config.json');
+let Config = require('../../../config/config.json');
 
 export class GuildsController implements Controller {
 	public path = '/guilds';
