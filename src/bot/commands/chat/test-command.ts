@@ -8,19 +8,17 @@ import { InteractionUtils } from '../../utils/index.js';
 import { Command, CommandDeferType } from '../index.js';
 
 export class TestCommand implements Command {
-    public names = [Lang.getRef('chatCommands.test', Language.Default)];
-    public cooldown = new RateLimiter(1, 5000);
-    public deferType = CommandDeferType.HIDDEN;
-    public requireClientPerms: PermissionsString[] = [];
+	public names = [Lang.getRef('chatCommands.test', Language.Default)];
+	public cooldown = new RateLimiter(1, 5000);
+	public deferType = CommandDeferType.HIDDEN;
+	public requireClientPerms: PermissionsString[] = [];
 
-    public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
-        const embed = Lang.getEmbed('displayEmbeds.test', data.lang);
-        if (embed.isErr()) {
-            Logger.error(
-                embed.error.message + `\nInteraction ID: ${intr.id}\nUser ID: ${intr.user.id}`
-            );
-            return;
-        }
-        await InteractionUtils.send(intr, embed.value);
-    }
+	public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
+		const embed = Lang.getEmbed('displayEmbeds.test', data.lang);
+		if (embed.isErr()) {
+			Logger.error(embed.error.message + `\nInteraction ID: ${intr.id}\nUser ID: ${intr.user.id}`);
+			return;
+		}
+		await InteractionUtils.send(intr, embed.value);
+	}
 }
