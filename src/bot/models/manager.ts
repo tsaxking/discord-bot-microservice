@@ -5,9 +5,9 @@ import { JobService, Logger } from '../services/index.js';
 import { attemptAsync } from 'ts-utils/check';
 
 const require = createRequire(import.meta.url);
-let Config = require('../../../config/config.json');
-let Debug = require('../../../config/debug.json');
-let Logs = require('../../../config/config.json');
+const Config = require('../../../config/config.json');
+const Debug = require('../../../config/debug.json');
+const Logs = require('../../../config/config.json');
 
 export class Manager {
 	constructor(
@@ -19,7 +19,7 @@ export class Manager {
 		return attemptAsync(async () => {
 			this.registerListeners();
 
-			let shardList = this.shardManager.shardList as number[];
+			const shardList = this.shardManager.shardList as number[];
 
 			Logger.info(
 				Logs.info.managerSpawningShards

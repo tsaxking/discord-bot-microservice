@@ -7,7 +7,7 @@ import { Controller } from './index.js';
 import { GetGuildsResponse } from '../models/cluster-api/index.js';
 
 const require = createRequire(import.meta.url);
-let Config = require('../../../config/config.json');
+const Config = require('../../../config/config.json');
 
 export class GuildsController implements Controller {
 	public path = '/guilds';
@@ -21,13 +21,13 @@ export class GuildsController implements Controller {
 	}
 
 	private async getGuilds(req: Request, res: Response): Promise<void> {
-		let guilds: string[] = [
+		const guilds: string[] = [
 			...new Set(
 				(await this.shardManager.broadcastEval((client) => [...client.guilds.cache.keys()])).flat()
 			)
 		];
 
-		let resBody: GetGuildsResponse = {
+		const resBody: GetGuildsResponse = {
 			guilds
 		};
 		res.status(200).json(resBody);

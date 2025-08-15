@@ -7,8 +7,8 @@ import { Logger } from '../services/index.js';
 import { attemptAsync } from 'ts-utils/check';
 
 const require = createRequire(import.meta.url);
-let Config = require('../../../config/config.json');
-let Logs = require('../../../config/config.json');
+const Config = require('../../../config/config.json');
+const Logs = require('../../../config/config.json');
 
 export class Api {
 	private app: Express;
@@ -40,7 +40,7 @@ export class Api {
 	}
 
 	private setupControllers(): void {
-		for (let controller of this.controllers) {
+		for (const controller of this.controllers) {
 			if (controller.authToken) {
 				controller.router.use(checkAuth(controller.authToken));
 			}

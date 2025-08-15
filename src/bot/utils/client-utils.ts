@@ -1,17 +1,11 @@
 import {
-	ApplicationCommand,
-	Channel,
 	Client,
-	DiscordAPIError,
 	RESTJSONErrorCodes as DiscordApiErrors,
 	Guild,
-	GuildMember,
 	Locale,
 	NewsChannel,
-	Role,
 	StageChannel,
 	TextChannel,
-	User,
 	VoiceChannel
 } from 'discord.js';
 
@@ -20,15 +14,15 @@ import { Lang } from '../services/index.js';
 import { attemptAsync } from 'ts-utils/check';
 
 const FETCH_MEMBER_LIMIT = 20;
-const IGNORED_ERRORS = [
-	DiscordApiErrors.UnknownMessage,
-	DiscordApiErrors.UnknownChannel,
-	DiscordApiErrors.UnknownGuild,
-	DiscordApiErrors.UnknownMember,
-	DiscordApiErrors.UnknownUser,
-	DiscordApiErrors.UnknownInteraction,
-	DiscordApiErrors.MissingAccess
-];
+// const IGNORED_ERRORS = [
+// 	DiscordApiErrors.UnknownMessage,
+// 	DiscordApiErrors.UnknownChannel,
+// 	DiscordApiErrors.UnknownGuild,
+// 	DiscordApiErrors.UnknownMember,
+// 	DiscordApiErrors.UnknownUser,
+// 	DiscordApiErrors.UnknownInteraction,
+// 	DiscordApiErrors.MissingAccess
+// ];
 
 export class ClientUtils {
 	public static getGuild(client: Client, discordId: string) {
@@ -80,12 +74,12 @@ export class ClientUtils {
 
 	public static findMember(guild: Guild, input: string) {
 		return attemptAsync(async () => {
-			let discordId = RegexUtils.discordId(input);
+			const discordId = RegexUtils.discordId(input);
 			if (discordId) {
 				return await guild.members.fetch(discordId);
 			}
 
-			let tag = RegexUtils.tag(input);
+			const tag = RegexUtils.tag(input);
 			if (tag) {
 				return (await guild.members.fetch({ query: tag.username, limit: FETCH_MEMBER_LIMIT })).find(
 					(member) => member.user.discriminator === tag.discriminator
@@ -98,13 +92,13 @@ export class ClientUtils {
 
 	public static findRole(guild: Guild, input: string) {
 		return attemptAsync(async () => {
-			let discordId = RegexUtils.discordId(input);
+			const discordId = RegexUtils.discordId(input);
 			if (discordId) {
 				return await guild.roles.fetch(discordId);
 			}
 
-			let search = input.trim().toLowerCase().replace(/^@/, '');
-			let roles = await guild.roles.fetch();
+			const search = input.trim().toLowerCase().replace(/^@/, '');
+			const roles = await guild.roles.fetch();
 			return (
 				roles.find((role) => role.name.toLowerCase() === search) ??
 				roles.find((role) => role.name.toLowerCase().includes(search))
@@ -114,9 +108,9 @@ export class ClientUtils {
 
 	public static findTextChannel(guild: Guild, input: string) {
 		return attemptAsync(async () => {
-			let discordId = RegexUtils.discordId(input);
+			const discordId = RegexUtils.discordId(input);
 			if (discordId) {
-				let channel = await guild.channels.fetch(discordId);
+				const channel = await guild.channels.fetch(discordId);
 				if (channel instanceof NewsChannel || channel instanceof TextChannel) {
 					return channel;
 				} else {
@@ -124,8 +118,8 @@ export class ClientUtils {
 				}
 			}
 
-			let search = input.trim().toLowerCase().replace(/^#/, '').replaceAll(' ', '-');
-			let channels = [...(await guild.channels.fetch()).values()].filter(
+			const search = input.trim().toLowerCase().replace(/^#/, '').replaceAll(' ', '-');
+			const channels = [...(await guild.channels.fetch()).values()].filter(
 				(channel) => channel instanceof NewsChannel || channel instanceof TextChannel
 			);
 			return (
@@ -137,9 +131,9 @@ export class ClientUtils {
 
 	public static findVoiceChannel(guild: Guild, input: string) {
 		return attemptAsync(async () => {
-			let discordId = RegexUtils.discordId(input);
+			const discordId = RegexUtils.discordId(input);
 			if (discordId) {
-				let channel = await guild.channels.fetch(discordId);
+				const channel = await guild.channels.fetch(discordId);
 				if (channel instanceof VoiceChannel || channel instanceof StageChannel) {
 					return channel;
 				} else {
@@ -147,8 +141,8 @@ export class ClientUtils {
 				}
 			}
 
-			let search = input.trim().toLowerCase().replace(/^#/, '');
-			let channels = [...(await guild.channels.fetch()).values()].filter(
+			const search = input.trim().toLowerCase().replace(/^#/, '');
+			const channels = [...(await guild.channels.fetch()).values()].filter(
 				(channel) => channel instanceof VoiceChannel || channel instanceof StageChannel
 			);
 			return (
@@ -161,7 +155,7 @@ export class ClientUtils {
 	public static findNotifyChannel(guild: Guild, langCode: Locale) {
 		return attemptAsync(async () => {
 			// Prefer the system channel
-			let systemChannel = guild.systemChannel;
+			const systemChannel = guild.systemChannel;
 			if (systemChannel && PermissionUtils.canSend(systemChannel, true)) {
 				return systemChannel;
 			}

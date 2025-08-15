@@ -17,7 +17,7 @@ export class CommandUtils {
 	public static findCommand(commands: Command[], commandParts: string[]): Command | undefined {
 		let found = [...commands];
 		let closestMatch: Command | undefined = undefined;
-		for (let [index, commandPart] of commandParts.entries()) {
+		for (const [index, commandPart] of commandParts.entries()) {
 			found = found.filter((command) => command.names[index] === commandPart);
 			if (found.length === 0) {
 				return closestMatch;
@@ -27,7 +27,7 @@ export class CommandUtils {
 				return found[0];
 			}
 
-			let exactMatch = found.find((command) => command.names.length === index + 1);
+			const exactMatch = found.find((command) => command.names.length === index + 1);
 			if (exactMatch) {
 				closestMatch = exactMatch;
 			}
@@ -42,7 +42,7 @@ export class CommandUtils {
 	) {
 		return attemptAsync(async () => {
 			if (command.cooldown) {
-				let limited = command.cooldown.take(intr.user.id);
+				const limited = command.cooldown.take(intr.user.id);
 				if (limited) {
 					await InteractionUtils.send(
 						intr,

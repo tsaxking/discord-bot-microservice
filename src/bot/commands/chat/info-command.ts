@@ -13,7 +13,7 @@ export class InfoCommand implements Command {
 	public requireClientPerms: PermissionsString[] = [];
 
 	public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
-		let args = {
+		const args = {
 			option: intr.options.getString(
 				Lang.getRef('arguments.option', Language.Default)
 			) as InfoOption
@@ -37,7 +37,7 @@ export class InfoCommand implements Command {
 					return;
 				}
 				embed = e.value;
-				for (let langCode of Language.Enabled) {
+				for (const langCode of Language.Enabled) {
 					embed.addFields([
 						{
 							name: Language.Data[langCode].nativeName,

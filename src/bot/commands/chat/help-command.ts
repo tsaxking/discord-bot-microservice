@@ -12,7 +12,7 @@ export class HelpCommand implements Command {
 	public deferType = CommandDeferType.HIDDEN;
 	public requireClientPerms: PermissionsString[] = [];
 	public async execute(intr: ChatInputCommandInteraction, data: EventData): Promise<void> {
-		let args = {
+		const args = {
 			option: intr.options.getString(
 				Lang.getRef('arguments.option', Language.Default)
 			) as HelpOption
