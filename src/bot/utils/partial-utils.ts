@@ -1,6 +1,6 @@
 import {
-	DiscordAPIError,
-	RESTJSONErrorCodes as DiscordApiErrors,
+	// DiscordAPIError,
+	// RESTJSONErrorCodes as DiscordApiErrors,
 	Message,
 	MessageReaction,
 	PartialMessage,
@@ -10,14 +10,14 @@ import {
 } from 'discord.js';
 import { attemptAsync } from 'ts-utils/check';
 
-const IGNORED_ERRORS = [
-	DiscordApiErrors.UnknownMessage,
-	DiscordApiErrors.UnknownChannel,
-	DiscordApiErrors.UnknownGuild,
-	DiscordApiErrors.UnknownUser,
-	DiscordApiErrors.UnknownInteraction,
-	DiscordApiErrors.MissingAccess
-];
+// const IGNORED_ERRORS = [
+// 	DiscordApiErrors.UnknownMessage,
+// 	DiscordApiErrors.UnknownChannel,
+// 	DiscordApiErrors.UnknownGuild,
+// 	DiscordApiErrors.UnknownUser,
+// 	DiscordApiErrors.UnknownInteraction,
+// 	DiscordApiErrors.MissingAccess
+// ];
 
 export class PartialUtils {
 	public static fillUser(user: User | PartialUser) {

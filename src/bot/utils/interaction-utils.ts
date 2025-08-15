@@ -2,29 +2,26 @@ import {
 	ApplicationCommandOptionChoiceData,
 	AutocompleteInteraction,
 	CommandInteraction,
-	DiscordAPIError,
 	RESTJSONErrorCodes as DiscordApiErrors,
 	EmbedBuilder,
 	InteractionReplyOptions,
-	InteractionResponse,
 	InteractionUpdateOptions,
-	Message,
 	MessageComponentInteraction,
 	ModalSubmitInteraction,
 	WebhookMessageEditOptions
 } from 'discord.js';
 import { attemptAsync } from 'ts-utils/check';
 
-const IGNORED_ERRORS = [
-	DiscordApiErrors.UnknownMessage,
-	DiscordApiErrors.UnknownChannel,
-	DiscordApiErrors.UnknownGuild,
-	DiscordApiErrors.UnknownUser,
-	DiscordApiErrors.UnknownInteraction,
-	DiscordApiErrors.CannotSendMessagesToThisUser, // User blocked bot or DM disabled
-	DiscordApiErrors.ReactionWasBlocked, // User blocked bot or DM disabled
-	DiscordApiErrors.MaximumActiveThreads
-];
+// const IGNORED_ERRORS = [
+// 	DiscordApiErrors.UnknownMessage,
+// 	DiscordApiErrors.UnknownChannel,
+// 	DiscordApiErrors.UnknownGuild,
+// 	DiscordApiErrors.UnknownUser,
+// 	DiscordApiErrors.UnknownInteraction,
+// 	DiscordApiErrors.CannotSendMessagesToThisUser, // User blocked bot or DM disabled
+// 	DiscordApiErrors.ReactionWasBlocked, // User blocked bot or DM disabled
+// 	DiscordApiErrors.MaximumActiveThreads
+// ];
 
 export class InteractionUtils {
 	public static deferReply(
@@ -50,7 +47,7 @@ export class InteractionUtils {
 		hidden: boolean = false
 	) {
 		return attemptAsync(async () => {
-			let options: InteractionReplyOptions =
+			const options: InteractionReplyOptions =
 				typeof content === 'string'
 					? { content }
 					: content instanceof EmbedBuilder
@@ -85,7 +82,7 @@ export class InteractionUtils {
 		content: string | EmbedBuilder | WebhookMessageEditOptions
 	) {
 		return attemptAsync(async () => {
-			let options: WebhookMessageEditOptions =
+			const options: WebhookMessageEditOptions =
 				typeof content === 'string'
 					? { content }
 					: content instanceof EmbedBuilder
@@ -100,7 +97,7 @@ export class InteractionUtils {
 		content: string | EmbedBuilder | InteractionUpdateOptions
 	) {
 		return attemptAsync(async () => {
-			let options: InteractionUpdateOptions =
+			const options: InteractionUpdateOptions =
 				typeof content === 'string'
 					? { content }
 					: content instanceof EmbedBuilder

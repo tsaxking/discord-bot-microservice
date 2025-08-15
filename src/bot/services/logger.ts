@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { DiscordAPIError } from 'discord.js';
 import { Response } from 'node-fetch';
 import { createRequire } from 'node:module';
@@ -5,7 +6,7 @@ import pino from 'pino';
 import { attemptAsync } from 'ts-utils/check';
 
 const require = createRequire(import.meta.url);
-let Config = require('../../../config/config.json');
+const Config = require('../../../config/config.json');
 
 let logger = pino(
 	{
@@ -62,8 +63,7 @@ export class Logger {
 					})
 					.error(message);
 			} else if (obj instanceof Response) {
-				let resText: string;
-				resText = await obj.text();
+				const resText = await obj.text();
 				logger
 					.child({
 						path: obj.url,

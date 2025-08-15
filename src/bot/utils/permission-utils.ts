@@ -5,7 +5,7 @@ export class PermissionUtils {
 		if (channel instanceof DMChannel) {
 			return true;
 		} else if (channel instanceof GuildChannel || channel instanceof ThreadChannel) {
-			let channelPerms = channel.permissionsFor(channel.client.user);
+			const channelPerms = channel.permissionsFor(channel.client.user);
 			if (!channelPerms) {
 				// This can happen if the guild disconnected while a collector is running
 				return false;
@@ -28,7 +28,7 @@ export class PermissionUtils {
 		if (channel instanceof DMChannel) {
 			return true;
 		} else if (channel instanceof GuildChannel || channel instanceof ThreadChannel) {
-			let channelPerms = channel.permissionsFor(channel.client.user);
+			const channelPerms = channel.permissionsFor(channel.client.user);
 			if (!channelPerms) {
 				// This can happen if the guild disconnected while a collector is running
 				return false;
@@ -49,7 +49,7 @@ export class PermissionUtils {
 		if (channel instanceof DMChannel) {
 			return true;
 		} else if (channel instanceof GuildChannel || channel instanceof ThreadChannel) {
-			let channelPerms = channel.permissionsFor(channel.client.user);
+			const channelPerms = channel.permissionsFor(channel.client.user);
 			if (!channelPerms) {
 				// This can happen if the guild disconnected while a collector is running
 				return false;
@@ -75,7 +75,7 @@ export class PermissionUtils {
 		if (channel instanceof DMChannel) {
 			return true;
 		} else if (channel instanceof GuildChannel || channel instanceof ThreadChannel) {
-			let channelPerms = channel.permissionsFor(channel.client.user);
+			const channelPerms = channel.permissionsFor(channel.client.user);
 			if (!channelPerms) {
 				// This can happen if the guild disconnected while a collector is running
 				return false;
@@ -102,7 +102,7 @@ export class PermissionUtils {
 		if (channel instanceof DMChannel) {
 			return false;
 		} else if (channel instanceof GuildChannel || channel instanceof ThreadChannel) {
-			let channelPerms = channel.permissionsFor(channel.client.user);
+			const channelPerms = channel.permissionsFor(channel.client.user);
 			if (!channelPerms) {
 				// This can happen if the guild disconnected while a collector is running
 				return false;

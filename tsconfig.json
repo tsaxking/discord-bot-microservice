@@ -8,11 +8,11 @@
 		"declaration": true,
 		"strict": true,
 		"esModuleInterop": true,
-		"skipLibCheck": true,
+		"skipLibCheck": true, // Avoid type-checking external library typings
 		"moduleResolution": "bundler",
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true
 	},
-	"include": ["src/**/*", "src/cli"],
+	"include": ["src/**/*"],
 	"exclude": ["node_modules", "lib"]
 }

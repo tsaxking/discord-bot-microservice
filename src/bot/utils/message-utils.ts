@@ -1,30 +1,27 @@
 import {
 	BaseMessageOptions,
-	DiscordAPIError,
 	RESTJSONErrorCodes as DiscordApiErrors,
 	EmbedBuilder,
 	EmojiResolvable,
 	Message,
 	MessageEditOptions,
-	MessageReaction,
 	PartialGroupDMChannel,
 	StartThreadOptions,
 	TextBasedChannel,
-	ThreadChannel,
 	User
 } from 'discord.js';
 import { attemptAsync } from 'ts-utils/check';
 
-const IGNORED_ERRORS = [
-	DiscordApiErrors.UnknownMessage,
-	DiscordApiErrors.UnknownChannel,
-	DiscordApiErrors.UnknownGuild,
-	DiscordApiErrors.UnknownUser,
-	DiscordApiErrors.UnknownInteraction,
-	DiscordApiErrors.CannotSendMessagesToThisUser, // User blocked bot or DM disabled
-	DiscordApiErrors.ReactionWasBlocked, // User blocked bot or DM disabled
-	DiscordApiErrors.MaximumActiveThreads
-];
+// const IGNORED_ERRORS = [
+// 	DiscordApiErrors.UnknownMessage,
+// 	DiscordApiErrors.UnknownChannel,
+// 	DiscordApiErrors.UnknownGuild,
+// 	DiscordApiErrors.UnknownUser,
+// 	DiscordApiErrors.UnknownInteraction,
+// 	DiscordApiErrors.CannotSendMessagesToThisUser, // User blocked bot or DM disabled
+// 	DiscordApiErrors.ReactionWasBlocked, // User blocked bot or DM disabled
+// 	DiscordApiErrors.MaximumActiveThreads
+// ];
 
 export class MessageUtils {
 	public static send(
@@ -33,7 +30,7 @@ export class MessageUtils {
 	) {
 		return attemptAsync(async () => {
 			if (target instanceof PartialGroupDMChannel) return;
-			let options: BaseMessageOptions =
+			const options: BaseMessageOptions =
 				typeof content === 'string'
 					? { content }
 					: content instanceof EmbedBuilder
@@ -45,7 +42,7 @@ export class MessageUtils {
 
 	public static reply(msg: Message, content: string | EmbedBuilder | BaseMessageOptions) {
 		return attemptAsync(async () => {
-			let options: BaseMessageOptions =
+			const options: BaseMessageOptions =
 				typeof content === 'string'
 					? { content }
 					: content instanceof EmbedBuilder
@@ -57,7 +54,7 @@ export class MessageUtils {
 
 	public static edit(msg: Message, content: string | EmbedBuilder | MessageEditOptions) {
 		return attemptAsync(async () => {
-			let options: MessageEditOptions =
+			const options: MessageEditOptions =
 				typeof content === 'string'
 					? { content }
 					: content instanceof EmbedBuilder

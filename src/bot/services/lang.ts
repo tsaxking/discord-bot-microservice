@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { EmbedBuilder, Locale, LocalizationMap, resolveColor } from 'discord.js';
-import { Linguini, TypeMapper, TypeMappers, Utils } from 'linguini';
+import { Linguini, TypeMappers, Utils } from 'linguini';
 import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -47,8 +48,8 @@ export class Lang {
 		location: string,
 		variables?: { [name: string]: string }
 	): LocalizationMap {
-		let obj: Record<string, string> = {};
-		for (let langCode of Language.Enabled) {
+		const obj: Record<string, string> = {};
+		for (const langCode of Language.Enabled) {
 			obj[langCode] = this.getRef(location, langCode, variables);
 		}
 		return obj;

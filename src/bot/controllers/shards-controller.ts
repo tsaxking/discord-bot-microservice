@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ActivityType, ShardingManager } from 'discord.js';
 import { Request, Response, Router } from 'express';
 import router from 'express-promise-router';
@@ -15,8 +16,8 @@ import {
 import { Logger } from '../services/index.js';
 
 const require = createRequire(import.meta.url);
-let Config = require('../../../config/config.json');
-let Logs = require('../../../config/config.json');
+const Config = require('../../../config/config.json');
+const Logs = require('../../../config/config.json');
 
 export class ShardsController implements Controller {
 	public path = '/shards';
@@ -32,17 +33,17 @@ export class ShardsController implements Controller {
 		);
 	}
 
-	private async getShards(req: Request, res: Response): Promise<void> {
-		let shardDatas = await Promise.all(
+	private async getShards(_req: Request, res: Response): Promise<void> {
+		const shardDatas = await Promise.all(
 			this.shardManager.shards.map(async (shard) => {
-				let shardInfo: ShardInfo = {
+				const shardInfo: ShardInfo = {
 					id: shard.id,
 					ready: shard.ready,
 					error: false
 				};
 
 				try {
-					let uptime = (await shard.fetchClientValue('uptime')) as number;
+					const uptime = (await shard.fetchClientValue('uptime')) as number;
 					shardInfo.uptimeSecs = Math.floor(uptime / 1000);
 				} catch (error) {
 					Logger.error(Logs.error.managerShardInfo, error);
@@ -53,12 +54,12 @@ export class ShardsController implements Controller {
 			})
 		);
 
-		let stats: ShardStats = {
+		const stats: ShardStats = {
 			shardCount: this.shardManager.shards.size,
 			uptimeSecs: Math.floor(process.uptime())
 		};
 
-		let resBody: GetShardsResponse = {
+		const resBody: GetShardsResponse = {
 			shards: shardDatas,
 			stats
 		};
@@ -66,11 +67,11 @@ export class ShardsController implements Controller {
 	}
 
 	private async setShardPresences(req: Request, res: Response): Promise<void> {
-		let reqBody: SetShardPresencesRequest = res.locals.input;
+		const reqBody: SetShardPresencesRequest = res.locals.input;
 
 		await this.shardManager.broadcastEval(
 			(client, context) => {
-				let customClient = client as CustomClient;
+				const customClient = client as CustomClient;
 				return customClient.setPresence(context.type as any, context.name, context.url);
 			},
 			{ context: { type: ActivityType[reqBody.type as any], name: reqBody.name, url: reqBody.url } }
