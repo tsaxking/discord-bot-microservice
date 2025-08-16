@@ -10,17 +10,23 @@ jobs:
     uses: ./.github/workflows/format-check.yaml
   unit-tests:
     uses: ./.github/workflows/unit-test.yaml
+  docker-compose:
+    uses: ./.github/workflows/docker-compose-test.yml
 
   merge-template:
     runs-on: ubuntu-latest
-    needs: [format, unit-tests]
+    needs: [format, unit-tests, docker-compose]
 
     strategy:
       fail-fast: false
       matrix:
         templates:
           [
-            git@github.com:TeamTators/tator-bot.git
+            'git@github.com:tsaxking/file-microservice.git',
+            'git@github.com:tsaxking/uuid-microservice.git',
+            'git@github.com:tsaxking/email-microservice.git',
+            'git@github.com:tsaxking/discord-bot-microservice.git',
+            'git@github.com:tsaxking/ntp-microservice.git'
           ]
 
     steps:
