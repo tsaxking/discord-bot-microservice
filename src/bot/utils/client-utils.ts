@@ -1,6 +1,5 @@
 import {
 	Client,
-	RESTJSONErrorCodes as DiscordApiErrors,
 	Guild,
 	Locale,
 	NewsChannel,

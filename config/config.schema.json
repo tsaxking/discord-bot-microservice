@@ -101,7 +101,7 @@
 					}
 				}
 			},
-			"required": ["outdir", "level"],
+			"required": ["enabled", "outdir", "level"],
 			"additionalProperties": false
 		},
 		"email": {
@@ -137,8 +137,399 @@
 			},
 			"required": ["server"],
 			"additionalProperties": false
+		},
+		"developers": {
+			"description": "Array of developer IDs",
+			"type": "array",
+			"items": {
+				"type": "string"
+			}
+		},
+		"client": {
+			"description": "Discord client configuration",
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": "Discord client ID"
+				},
+				"token": {
+					"type": "string",
+					"description": "Discord bot token"
+				},
+				"intents": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": "Discord client intents"
+				},
+				"partials": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": "Discord client partials"
+				},
+				"caches": {
+					"type": "object",
+					"properties": {
+						"AutoModerationRuleManager": {
+							"type": "number"
+						},
+						"BaseGuildEmojiManager": {
+							"type": "number"
+						},
+						"GuildBanManager": {
+							"type": "number"
+						},
+						"GuildInviteManager": {
+							"type": "number"
+						},
+						"MessageManager": {
+							"type": "number"
+						},
+						"GuildScheduledEventManager": {
+							"type": "number"
+						},
+						"GuildStickerManager": {
+							"type": "number"
+						},
+						"PresenceManager": {
+							"type": "number"
+						},
+						"StageInstanceManager": {
+							"type": "number"
+						},
+						"ThreadManager": {
+							"type": "number"
+						},
+						"ThreadMemberManager": {
+							"type": "number"
+						},
+						"VoiceStateManager": {
+							"type": "number"
+						}
+					},
+					"required": [
+						"AutoModerationRuleManager",
+						"BaseGuildEmojiManager",
+						"GuildBanManager",
+						"GuildInviteManager",
+						"MessageManager",
+						"GuildScheduledEventManager",
+						"GuildStickerManager",
+						"PresenceManager",
+						"StageInstanceManager",
+						"ThreadManager",
+						"ThreadMemberManager",
+						"VoiceStateManager"
+					],
+					"additionalProperties": false,
+					"description": "Cache configuration for Discord managers"
+				}
+			},
+			"required": ["id", "token", "intents", "partials", "caches"],
+			"additionalProperties": false
+		},
+		"api": {
+			"description": "API configuration",
+			"type": "object",
+			"properties": {
+				"port": {
+					"type": "integer",
+					"minimum": 1,
+					"maximum": 65535,
+					"description": "API server port"
+				},
+				"secret": {
+					"type": "string",
+					"description": "API secret key"
+				}
+			},
+			"required": ["port", "secret"],
+			"additionalProperties": false
+		},
+		"sharding": {
+			"description": "Discord sharding configuration",
+			"type": "object",
+			"properties": {
+				"spawnDelay": {
+					"type": "number",
+					"description": "Delay between shard spawns"
+				},
+				"spawnTimeout": {
+					"type": "number",
+					"description": "Timeout for shard spawn"
+				},
+				"serversPerShard": {
+					"type": "number",
+					"description": "Number of servers per shard"
+				}
+			},
+			"required": ["spawnDelay", "spawnTimeout", "serversPerShard"],
+			"additionalProperties": false
+		},
+		"clustering": {
+			"description": "Clustering configuration",
+			"type": "object",
+			"properties": {
+				"enabled": {
+					"type": "boolean",
+					"description": "Whether clustering is enabled"
+				},
+				"shardCount": {
+					"type": "number",
+					"description": "Number of shards"
+				},
+				"callbackUrl": {
+					"type": "string",
+					"format": "uri",
+					"description": "Callback URL for clustering"
+				},
+				"masterApi": {
+					"type": "object",
+					"properties": {
+						"url": {
+							"type": "string",
+							"format": "uri",
+							"description": "Master API URL"
+						},
+						"token": {
+							"type": "string",
+							"description": "Master API token"
+						}
+					},
+					"required": ["url", "token"],
+					"additionalProperties": false,
+					"description": "Master API configuration"
+				}
+			},
+			"required": ["enabled", "shardCount", "callbackUrl", "masterApi"],
+			"additionalProperties": false
+		},
+		"jobs": {
+			"description": "Job configuration",
+			"type": "object",
+			"properties": {
+				"updateServerCount": {
+					"type": "object",
+					"properties": {
+						"schedule": {
+							"type": "string",
+							"description": "Cron schedule for server count update"
+						},
+						"log": {
+							"type": "boolean",
+							"description": "Whether to log job execution"
+						},
+						"runOnce": {
+							"type": "boolean",
+							"description": "Whether to run job only once"
+						},
+						"initialDelaySecs": {
+							"type": "number",
+							"description": "Initial delay in seconds"
+						}
+					},
+					"required": ["schedule", "log", "runOnce", "initialDelaySecs"],
+					"additionalProperties": false,
+					"description": "Server count update job configuration"
+				}
+			},
+			"required": ["updateServerCount"],
+			"additionalProperties": false
+		},
+		"rateLimiting": {
+			"description": "Rate limiting configuration",
+			"type": "object",
+			"properties": {
+				"commands": {
+					"type": "object",
+					"properties": {
+						"amount": {
+							"type": "number",
+							"description": "Number of commands allowed"
+						},
+						"interval": {
+							"type": "number",
+							"description": "Interval in milliseconds"
+						}
+					},
+					"required": ["amount", "interval"],
+					"additionalProperties": false,
+					"description": "Command rate limiting"
+				},
+				"buttons": {
+					"type": "object",
+					"properties": {
+						"amount": {
+							"type": "number",
+							"description": "Number of button interactions allowed"
+						},
+						"interval": {
+							"type": "number",
+							"description": "Interval in milliseconds"
+						}
+					},
+					"required": ["amount", "interval"],
+					"additionalProperties": false,
+					"description": "Button rate limiting"
+				},
+				"triggers": {
+					"type": "object",
+					"properties": {
+						"amount": {
+							"type": "number",
+							"description": "Number of triggers allowed"
+						},
+						"interval": {
+							"type": "number",
+							"description": "Interval in milliseconds"
+						}
+					},
+					"required": ["amount", "interval"],
+					"additionalProperties": false,
+					"description": "Trigger rate limiting"
+				},
+				"reactions": {
+					"type": "object",
+					"properties": {
+						"amount": {
+							"type": "number",
+							"description": "Number of reactions allowed"
+						},
+						"interval": {
+							"type": "number",
+							"description": "Interval in milliseconds"
+						}
+					},
+					"required": ["amount", "interval"],
+					"additionalProperties": false,
+					"description": "Reaction rate limiting"
+				}
+			},
+			"required": ["commands", "buttons", "triggers", "reactions"],
+			"additionalProperties": false
+		},
+		"logging": {
+			"description": "Logging configuration",
+			"type": "object",
+			"properties": {
+				"pretty": {
+					"type": "boolean",
+					"description": "Whether to use pretty logging"
+				},
+				"rateLimit": {
+					"type": "object",
+					"properties": {
+						"minTimeout": {
+							"type": "number",
+							"description": "Minimum timeout for rate limit logging"
+						}
+					},
+					"required": ["minTimeout"],
+					"additionalProperties": false,
+					"description": "Rate limit logging configuration"
+				}
+			},
+			"required": ["pretty", "rateLimit"],
+			"additionalProperties": false
+		},
+		"sites": {
+			"description": "External sites configuration",
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "Site name"
+					},
+					"enabled": {
+						"type": "boolean",
+						"description": "Whether the site is enabled"
+					},
+					"url": {
+						"type": "string",
+						"format": "uri",
+						"description": "Site URL"
+					},
+					"authorization": {
+						"type": "string",
+						"description": "Authorization header"
+					},
+					"body": {
+						"type": "string",
+						"description": "Request body"
+					}
+				},
+				"required": ["name", "enabled", "url", "authorization", "body"],
+				"additionalProperties": false
+			}
+		},
+		"debug": {
+			"description": "Debug configuration",
+			"type": "object",
+			"properties": {
+				"shardMode": {
+					"type": "object",
+					"properties": {
+						"enabled": {
+							"type": "boolean",
+							"description": "Whether shard mode debugging is enabled"
+						},
+						"value": {
+							"type": "string",
+							"description": "Shard mode value"
+						}
+					},
+					"required": ["enabled", "value"],
+					"additionalProperties": false,
+					"description": "Shard mode debug configuration"
+				},
+				"dummyMode": {
+					"type": "object",
+					"properties": {
+						"enabled": {
+							"type": "boolean",
+							"description": "Whether dummy mode is enabled"
+						},
+						"whitelist": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							},
+							"description": "Whitelist for dummy mode"
+						}
+					},
+					"required": ["enabled", "whitelist"],
+					"additionalProperties": false,
+					"description": "Dummy mode debug configuration"
+				}
+			},
+			"required": ["shardMode", "dummyMode"],
+			"additionalProperties": false
 		}
 	},
-	"required": ["environment", "app_name", "redis", "logs", "ntp"],
+	"required": [
+		"environment",
+		"app_name",
+		"database",
+		"redis",
+		"logs",
+		"email",
+		"ntp",
+		"developers",
+		"client",
+		"api",
+		"sharding",
+		"clustering",
+		"jobs",
+		"rateLimiting",
+		"logging",
+		"sites",
+		"debug"
+	],
 	"additionalProperties": false
 }

@@ -2,7 +2,6 @@ import {
 	ApplicationCommandOptionChoiceData,
 	AutocompleteInteraction,
 	CommandInteraction,
-	RESTJSONErrorCodes as DiscordApiErrors,
 	EmbedBuilder,
 	InteractionReplyOptions,
 	InteractionUpdateOptions,

@@ -29,5 +29,95 @@
 	},
 	"ntp": {
 		"server": "ntp_server_name"
+	},
+	"developers": ["123456789012345678", "987654321098765432"],
+	"client": {
+		"id": "your_discord_client_id",
+		"token": "your_discord_bot_token",
+		"intents": ["Guilds", "GuildMessages", "MessageContent"],
+		"partials": ["Channel", "GuildMember", "Message", "User"],
+		"caches": {
+			"AutoModerationRuleManager": 0,
+			"BaseGuildEmojiManager": 0,
+			"GuildBanManager": 0,
+			"GuildInviteManager": 0,
+			"MessageManager": 50,
+			"GuildScheduledEventManager": 0,
+			"GuildStickerManager": 0,
+			"PresenceManager": 0,
+			"StageInstanceManager": 0,
+			"ThreadManager": 0,
+			"ThreadMemberManager": 0,
+			"VoiceStateManager": 0
+		}
+	},
+	"api": {
+		"port": 8080,
+		"secret": "your_api_secret_key"
+	},
+	"sharding": {
+		"spawnDelay": 5000,
+		"spawnTimeout": 30000,
+		"serversPerShard": 1000
+	},
+	"clustering": {
+		"enabled": false,
+		"shardCount": 1,
+		"callbackUrl": "http://localhost:3000/callback",
+		"masterApi": {
+			"url": "http://localhost:3001",
+			"token": "your_master_api_token"
+		}
+	},
+	"jobs": {
+		"updateServerCount": {
+			"schedule": "0 */5 * * * *",
+			"log": true,
+			"runOnce": false,
+			"initialDelaySecs": 30
+		}
+	},
+	"rateLimiting": {
+		"commands": {
+			"amount": 5,
+			"interval": 30000
+		},
+		"buttons": {
+			"amount": 5,
+			"interval": 30000
+		},
+		"triggers": {
+			"amount": 3,
+			"interval": 60000
+		},
+		"reactions": {
+			"amount": 3,
+			"interval": 60000
+		}
+	},
+	"logging": {
+		"pretty": true,
+		"rateLimit": {
+			"minTimeout": 30000
+		}
+	},
+	"sites": [
+		{
+			"name": "Example Bot List",
+			"enabled": false,
+			"url": "https://example-botlist.com/api/stats",
+			"authorization": "Bearer your_api_token",
+			"body": "{\"server_count\": \"{SERVER_COUNT}\"}"
+		}
+	],
+	"debug": {
+		"shardMode": {
+			"enabled": false,
+			"value": "auto"
+		},
+		"dummyMode": {
+			"enabled": false,
+			"whitelist": ["123456789012345678"]
+		}
 	}
 }

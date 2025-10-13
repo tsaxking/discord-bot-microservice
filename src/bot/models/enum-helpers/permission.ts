@@ -259,6 +259,11 @@ export class Permission {
 			displayName(langCode: Locale): string {
 				return Lang.getRef('permissions.ViewGuildInsights', langCode);
 			}
+		},
+		PinMessages: {
+			displayName(langCode: Locale): string {
+				return Lang.getRef('permissions.PinMessages', langCode);
+			}
 		}
 	};
 }

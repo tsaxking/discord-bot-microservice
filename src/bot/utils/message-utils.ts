@@ -1,6 +1,5 @@
 import {
 	BaseMessageOptions,
-	RESTJSONErrorCodes as DiscordApiErrors,
 	EmbedBuilder,
 	EmojiResolvable,
 	Message,

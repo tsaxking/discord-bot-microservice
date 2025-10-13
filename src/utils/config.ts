@@ -70,9 +70,9 @@ export default z.object({
 	clustering: z.object({
 		enabled: z.boolean(),
 		shardCount: z.number(),
-		callbackUrl: z.url(),
+		callbackUrl: z.string().url(),
 		masterApi: z.object({
-			url: z.url(),
+			url: z.string().url(),
 			token: z.string()
 		})
 	}),
@@ -112,7 +112,7 @@ export default z.object({
 		z.object({
 			name: z.string(),
 			enabled: z.boolean(),
-			url: z.url(),
+			url: z.string().url(),
 			authorization: z.string(),
 			body: z.string()
 		})
