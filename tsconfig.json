@@ -8,7 +8,9 @@
 		"strict": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true, // Avoid type-checking external library typings
-		"moduleResolution": "bundler"
+		"moduleResolution": "bundler",
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true
 	},
 	"include": ["src/**/*"],
 	"exclude": ["node_modules", "lib"]

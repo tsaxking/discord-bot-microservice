@@ -1,5 +1,5 @@
-import { config } from "./utils/env";
+import { config } from './utils/env';
 
 export const main = async () => {
-    console.log(config);
+	console.log(config);
 };

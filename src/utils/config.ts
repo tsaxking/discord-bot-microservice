@@ -36,5 +36,96 @@ export default z.object({
 	}),
 	ntp: z.object({
 		server: z.string().min(1)
+	}),
+	developers: z.array(z.string()),
+	client: z.object({
+		id: z.string(),
+		token: z.string(),
+		intents: z.array(z.string()),
+		partials: z.array(z.string()),
+		caches: z.object({
+			AutoModerationRuleManager: z.number(),
+			BaseGuildEmojiManager: z.number(),
+			GuildBanManager: z.number(),
+			GuildInviteManager: z.number(),
+			MessageManager: z.number(),
+			GuildScheduledEventManager: z.number(),
+			GuildStickerManager: z.number(),
+			PresenceManager: z.number(),
+			StageInstanceManager: z.number(),
+			ThreadManager: z.number(),
+			ThreadMemberManager: z.number(),
+			VoiceStateManager: z.number()
+		})
+	}),
+	api: z.object({
+		port: z.number(),
+		secret: z.string()
+	}),
+	sharding: z.object({
+		spawnDelay: z.number(),
+		spawnTimeout: z.number(),
+		serversPerShard: z.number()
+	}),
+	clustering: z.object({
+		enabled: z.boolean(),
+		shardCount: z.number(),
+		callbackUrl: z.url(),
+		masterApi: z.object({
+			url: z.url(),
+			token: z.string()
+		})
+	}),
+	jobs: z.object({
+		updateServerCount: z.object({
+			schedule: z.string(),
+			log: z.boolean(),
+			runOnce: z.boolean(),
+			initialDelaySecs: z.number()
+		})
+	}),
+	rateLimiting: z.object({
+		commands: z.object({
+			amount: z.number(),
+			interval: z.number()
+		}),
+		buttons: z.object({
+			amount: z.number(),
+			interval: z.number()
+		}),
+		triggers: z.object({
+			amount: z.number(),
+			interval: z.number()
+		}),
+		reactions: z.object({
+			amount: z.number(),
+			interval: z.number()
+		})
+	}),
+	logging: z.object({
+		pretty: z.boolean(),
+		rateLimit: z.object({
+			minTimeout: z.number()
+		})
+	}),
+	sites: z.array(
+		z.object({
+			name: z.string(),
+			enabled: z.boolean(),
+			url: z.url(),
+			authorization: z.string(),
+			body: z.string()
+		})
+	),
+	debug: z.object({
+		shardMode: z.object({
+			enabled: z.boolean(),
+			value: z.string()
+		}),
+
+		dummyMode: z.object({
+			enabled: z.boolean(),
+			whitelist: z.array(z.string())
+		})
 	})
 });
